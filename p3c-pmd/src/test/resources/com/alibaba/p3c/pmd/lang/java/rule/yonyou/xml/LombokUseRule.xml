@@ -6,30 +6,47 @@
   <code-fragment id="测试样例">
     <![CDATA[
 
-package com.yonyou.einvoice.dto;
+package com.yonyou.einvoice.building.dto;
 
-import lombok.Data;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+import java.util.List;
+import javax.validation.Valid;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/**
- * 用户公司聚合实体，用于开通
- *
- * @author gaotx
- */
+
 @Getter
 @Setter
 @ToString
-@Data
-public class CasUserCorp {
+@ApiModel(description = "建筑预警配置主体")
+public class AlarmConfigDto {
 
-  private CasUser user;
+  @ApiModelProperty(value = "主键")
+  private Integer id;
 
-  private CasCorp corp;
+  @ApiModelProperty(value = "是否启用")
+  @NotEmpty(message = "是否启用标志不能为空")
+  private String enabled;
 
+  @ApiModelProperty(value = "预警条件")
+  @NotNull(message = "预警条件不能为空")
+  @Valid
+  private TriggerCondition triggerCondition;
+
+  @ApiModelProperty(value = "邮件通知")
+  private List<String> emails;
+
+  @ApiModelProperty(value = "平台通知")
+  private List<String> userids;
+
+  public AlarmConfigDto(){};
 
 }
+
         ]]>
   </code-fragment>
 
