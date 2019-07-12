@@ -558,5 +558,8 @@
     <entry key="java.yonyou.ServiceLoopCallRule.rule.msg">
         <![CDATA[说明：出现了循环中调用dao层语句 数据库负载过大 建议修改 ]]>
     </entry>
+    <entry key="java.yonyou.LombokUseRule.rule.msg">
+        <![CDATA[说明：出现了不允许使用的Lombok规约 【%s】建议去除]]>
+    </entry>
 
 </properties>

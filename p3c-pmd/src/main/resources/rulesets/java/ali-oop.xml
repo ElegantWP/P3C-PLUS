@@ -153,30 +153,6 @@ Positive example:
 ]]>
     </example>
   </rule>
-  <rule name="MethodParameterCountRule"
-    language="java"
-    message="java.oop.MethodParameterCountRule.rule.msg"
-    class="com.alibaba.p3c.pmd.lang.java.rule.oop.MethodParameterCountRule">
-    <!--级别，1强制，2推荐，3参考-->
-    <priority>1</priority>
-
-    <example>
-      <![CDATA[
-Negative example:
-    public void methodB(int a, int b, int c, int d, int e) {
-
-    }
-]]>
-    </example>
-    <example>
-      <![CDATA[
-Positive example:
-    public void methodA() {
-
-    }
-]]>
-    </example>
-  </rule>
 
 
 </ruleset>

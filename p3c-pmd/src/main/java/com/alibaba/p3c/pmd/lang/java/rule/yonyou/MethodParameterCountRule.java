@@ -1,4 +1,4 @@
-package com.alibaba.p3c.pmd.lang.java.rule.oop;
+package com.alibaba.p3c.pmd.lang.java.rule.yonyou;
 
 import com.alibaba.p3c.pmd.lang.java.rule.AbstractAliRule;
 import java.util.List;

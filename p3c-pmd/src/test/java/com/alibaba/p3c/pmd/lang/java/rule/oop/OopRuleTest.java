@@ -41,9 +41,4 @@ public class OopRuleTest extends SimpleAggregatorTst {
         addRule(RULESET, "StringConcatRule");
         addRule(RULESET, "BigDecimalAvoidDoubleConstructorRule");
     }
-    @Test
-    public void testCodeStyle(){
-        Rule rule = this.findRule(RULESET,"MethodParameterCountRule");
-        runTests(rule,"MethodParameterCountRule");
-    }
 }

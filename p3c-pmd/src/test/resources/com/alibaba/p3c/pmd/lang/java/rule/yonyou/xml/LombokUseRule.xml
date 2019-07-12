@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<test-data xmlns="http://pmd.sourceforge.net/rule-tests"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sourceforge.net/rule-tests https://pmd.sourceforge.io/rule-tests_1_0_0.xsd">
+
+  <code-fragment id="测试样例">
+    <![CDATA[
+
+package com.yonyou.einvoice.dto;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * 用户公司聚合实体，用于开通
+ *
+ * @author gaotx
+ */
+@Getter
+@Setter
+@ToString
+@Data
+public class CasUserCorp {
+
+  private CasUser user;
+
+  private CasCorp corp;
+
+
+}
+        ]]>
+  </code-fragment>
+
+  <test-code>
+    <!-- 预期问题个数 -->
+    <description>LombokUseRule</description>
+    <expected-problems>0</expected-problems>
+    <code-ref id="测试样例" />
+  </test-code>
+</test-data>

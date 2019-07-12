@@ -195,4 +195,105 @@ public class PrepayServiceImpl {
     </example>
   </rule>
 
+  <rule name="LombokUseRule"
+    language="java"
+    message="java.yonyou.LombokUseRule.rule.msg"
+    class="com.alibaba.p3c.pmd.lang.java.rule.yonyou.LombokUseRule">
+    <!--级别，1强制，2推荐，3参考-->
+    <priority>1</priority>
+
+
+    <example>
+      <![CDATA[
+Negative example:
+
+package com.yonyou.einvoice.dto;
+
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * 用户公司聚合实体，用于开通
+ *
+ * @author gaotx
+ */
+@Getter
+@Setter
+@ToString
+@Data
+public class CasUserCorp {
+
+  private CasUser user;
+
+  private CasCorp corp;
+
+
+}
+
+
+
+]]>
+    </example>
+    <example>
+      <![CDATA[
+Positive example:
+
+package com.yonyou.einvoice.dto;
+
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
+
+/**
+ * 用户公司聚合实体，用于开通
+ *
+ * @author gaotx
+ */
+@Getter
+@Setter
+@ToString
+public class CasUserCorp {
+
+  private CasUser user;
+
+  private CasCorp corp;
+
+
+}
+
+
+
+
+
+]]>
+    </example>
+  </rule>
+
+  <rule name="MethodParameterCountRule"
+    language="java"
+    message="java.oop.MethodParameterCountRule.rule.msg"
+    class="com.alibaba.p3c.pmd.lang.java.rule.yonyou.MethodParameterCountRule">
+    <!--级别，1强制，2推荐，3参考-->
+    <priority>1</priority>
+
+    <example>
+      <![CDATA[
+Negative example:
+    public void methodB(int a, int b, int c, int d, int e) {
+
+    }
+]]>
+    </example>
+    <example>
+      <![CDATA[
+Positive example:
+    public void methodA() {
+
+    }
+]]>
+    </example>
+  </rule>
+
 </ruleset>

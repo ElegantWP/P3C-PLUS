@@ -10,17 +10,19 @@ import org.junit.Test;
  */
 public class URIRequestRuleTest extends SimpleAggregatorTst {
 
-  // 加载类路径Classpath下的 rulesets/java/yonyou-uri.xml
-  private static final String RULESET = "java-yonyou-uri";
+  // 加载类路径Classpath下的 rulesets/java/yonyou-rule.xml
+  private static final String RULESET = "java-yonyou-rule";
 
   @Override
   public void setUp() {
     addRule(RULESET, "URIRequestRule");
     addRule(RULESET,"ServiceLoopCallRule");
+    addRule(RULESET,"LombokUseRule");
+    addRule(RULESET,"MethodParameterCountRule");
   }
 
   @Test
-  public void testCodeStyle(){
+  public void testURI(){
     Rule rule = this.findRule(RULESET,"URIRequestRule");
     runTests(rule,"URIRequestRule");
   }
@@ -31,4 +33,15 @@ public class URIRequestRuleTest extends SimpleAggregatorTst {
     runTests(rule,"ServiceLoopCallRule");
   }
 
+  @Test
+  public void testLombokUseRule(){
+    Rule rule = this.findRule(RULESET,"LombokUseRule");
+    runTests(rule,"LombokUseRule");
+  }
+
+  @Test
+  public void testCodeStyle(){
+    Rule rule = this.findRule(RULESET,"MethodParameterCountRule");
+    runTests(rule,"MethodParameterCountRule");
+  }
 }
