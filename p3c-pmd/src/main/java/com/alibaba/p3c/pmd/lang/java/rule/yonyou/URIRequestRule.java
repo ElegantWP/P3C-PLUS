@@ -53,6 +53,20 @@ public class URIRequestRule extends AbstractAliRule {
             }
           }
         }
+        if (uriNodes.size()>0){
+          for (Node uriNode : uriNodes){
+            List<? extends Node> uriNames = uriNode
+                .findChildNodesWithXPath(ANNOTATION_VALUE_XPATH);
+            if (uriNames != null || uriNames.size() > 0 ){
+              for (Node uriName : uriNames){
+                if (uriName instanceof ASTLiteral){
+                  ASTLiteral uri = (ASTLiteral) uriName;
+                  System.out.println(uri.getEscapedStringLiteral());
+                }
+              }
+            }
+          }
+        }
       }
     } catch (Exception e) {
       e.printStackTrace();
