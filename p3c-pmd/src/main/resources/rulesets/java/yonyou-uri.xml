@@ -1,0 +1,198 @@
+<?xml version="1.0"?>
+
+<ruleset name="AlibabaJavaOop" xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+  <description>YonyouRule</description>
+
+  <rule name="URIRequestRule"
+    language="java"
+    message="java.yonyou.URIRequestRule.rule.msg"
+    class="com.alibaba.p3c.pmd.lang.java.rule.yonyou.URIRequestRule">
+    <!--级别，1强制，2推荐，3参考-->
+    <priority>1</priority>
+
+    <example>
+      <![CDATA[
+Negative example:
+  @ApiImplicitParam(name = "code", paramType = "query", value = "激活码", required = true)
+  @RequestMapping(value = "/activate", method = RequestMethod.GET)
+  public ICommonResponse activate(@RequestParam String code) {
+
+    if (StringUtils.isEmpty(code)) {
+      return new CommonResponse(ICommonResponse.FAIL_CODE, "激活码为空");
+    }
+    boolean flag = cloudMarketService.activateFixCode(code);
+    if (!flag) {
+      cloudMarketService.activateCode(code);
+      return CommonResponseEnum.SUCCESS;
+    }
+    return new CommonResponse(ICommonResponse.TAX_DECLARATION_ACTIVE_SUCCESS, "操作成功");
+  }
+]]>
+    </example>
+    <example>
+      <![CDATA[
+Positive example:
+  @ApiImplicitParam(name = "code", paramType = "query", value = "激活码", required = true)
+  @RequestMapping(value = "/activate", method = RequestMethod.PUT)
+  public ICommonResponse activate(@RequestParam String code) {
+    if (StringUtils.isEmpty(code)) {
+      return new CommonResponse(ICommonResponse.FAIL_CODE, "激活码为空");
+    }
+    boolean flag = cloudMarketService.activateFixCode(code);
+    if (!flag) {
+      cloudMarketService.activateCode(code);
+      return CommonResponseEnum.SUCCESS;
+    }
+    return new CommonResponse(ICommonResponse.TAX_DECLARATION_ACTIVE_SUCCESS, "操作成功");
+  }
+]]>
+    </example>
+  </rule>
+
+
+  <rule name="ServiceLoopCallRule"
+    language="java"
+    message="java.yonyou.ServiceLoopCallRule.rule.msg"
+    class="com.alibaba.p3c.pmd.lang.java.rule.yonyou.ServiceLoopCallRule">
+    <!--级别，1强制，2推荐，3参考-->
+    <priority>1</priority>
+
+
+    <example>
+      <![CDATA[
+Negative example:
+
+package com.yonyou.einvoice.inputtax.service.impl;
+
+import com.yonyou.einvoice.inputtax.api.dto.PrepaymentQueryDto;
+import com.yonyou.einvoice.inputtax.api.dto.SubcontractorResponse;
+import com.yonyou.einvoice.inputtax.purchase.repository.PurchaseAccountMapper;
+import com.yonyou.einvoice.inputtax.realestate.repository.EstateAccountMapper;
+import com.yonyou.einvoice.inputtax.reimburse.repository.ReimburseCollectionDao;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PrepayServiceImpl {
+
+    @Autowired
+    private ReimburseCollectionDao reimburseCollectionDao;
+    @Autowired
+    private PurchaseAccountMapper purchaseAccountMapper;
+    @Autowired
+    private EstateAccountMapper estateAccountMapper;
+
+    public List<SubcontractorResponse> subcontractorList(PrepaymentQueryDto prepaymentQueryDto) {
+        List<SubcontractorResponse> result = new ArrayList<SubcontractorResponse>();
+        result.addAll(reimburseCollectionDao.listByProjectid(prepaymentQueryDto));
+        result.addAll(purchaseAccountMapper.listByProjectid(prepaymentQueryDto));
+        result.addAll(estateAccountMapper.listByProjectid(prepaymentQueryDto));
+        List<SubcontractorResponse> sortResult = result.stream()
+                .sorted(Comparator
+                        .comparing(SubcontractorResponse::getPrepayDeduction, Comparator.nullsFirst(String::compareTo))
+                        .reversed())
+                .collect(Collectors.toList());// 按扣除状态排序
+        for (SubcontractorResponse  response: result) {
+            reimburseCollectionDao.updateReimburseCollection();
+        }
+        return sortResult;
+    }
+
+    public void updateAccountState(List<PrepaymentQueryDto> conditions) {
+        for (PrepaymentQueryDto condition : conditions) {
+            if (CollectionUtils.isNotEmpty(condition.getReimburseIds())) {
+                reimburseCollectionDao.updatePrepayDeduction(condition);
+            }
+            if (CollectionUtils.isNotEmpty(condition.getInvoiceCollectionIds())) {
+                purchaseAccountMapper.updatePrepayDeduction(condition);
+            }
+            if (CollectionUtils.isNotEmpty(condition.getRealEstateIds())) {
+                estateAccountMapper.updatePrepayDeduction(condition);
+            }
+        }
+
+    }
+
+}
+
+
+]]>
+    </example>
+    <example>
+      <![CDATA[
+Positive example:
+
+
+package com.yonyou.einvoice.inputtax.service.impl;
+
+import com.yonyou.einvoice.inputtax.api.dto.PrepaymentQueryDto;
+import com.yonyou.einvoice.inputtax.api.dto.SubcontractorResponse;
+import com.yonyou.einvoice.inputtax.purchase.repository.PurchaseAccountMapper;
+import com.yonyou.einvoice.inputtax.realestate.repository.EstateAccountMapper;
+import com.yonyou.einvoice.inputtax.reimburse.repository.ReimburseCollectionDao;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+@Service
+public class PrepayServiceImpl {
+
+  @Autowired
+  private ReimburseCollectionDao reimburseCollectionDao;
+  @Autowired
+  private PurchaseAccountMapper purchaseAccountMapper;
+  @Autowired
+  private EstateAccountMapper estateAccountMapper;
+
+  public List<SubcontractorResponse> subcontractorList(PrepaymentQueryDto prepaymentQueryDto) {
+    List<SubcontractorResponse> result = new ArrayList<SubcontractorResponse>();
+    result.addAll(reimburseCollectionDao.listByProjectid(prepaymentQueryDto));
+    result.addAll(purchaseAccountMapper.listByProjectid(prepaymentQueryDto));
+    result.addAll(estateAccountMapper.listByProjectid(prepaymentQueryDto));
+    List<SubcontractorResponse> sortResult = result.stream().sorted(Comparator
+        .comparing(SubcontractorResponse::getPrepayDeduction,
+            Comparator.nullsFirst(String::compareTo)).reversed()).collect(
+        Collectors.toList());//按扣除状态排序
+    return sortResult;
+  }
+
+  public void updateAccountState(List<PrepaymentQueryDto> conditions) {
+    for (PrepaymentQueryDto condition : conditions) {
+      if (CollectionUtils.isNotEmpty(condition.getReimburseIds())) {
+        reimburseCollectionDao.updatePrepayDeduction(condition);
+      }
+      if (CollectionUtils.isNotEmpty(condition.getInvoiceCollectionIds())) {
+        purchaseAccountMapper.updatePrepayDeduction(condition);
+      }
+      if (CollectionUtils.isNotEmpty(condition.getRealEstateIds())) {
+        estateAccountMapper.updatePrepayDeduction(condition);
+      }
+    }
+
+
+  }
+
+
+}
+
+
+
+
+
+
+]]>
+    </example>
+  </rule>
+
+</ruleset>
