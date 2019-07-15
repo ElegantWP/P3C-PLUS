@@ -552,7 +552,7 @@
         <![CDATA[说明：方法参数列表不允许超过（含）5个，建议封装到一个对象中。]]>
     </entry>
 
-    <entry key="java.yonyou.URIRequestRule.rule.msg">
+    <entry key="java.yonyou.UriYonyouRequestRule.rule.msg">
         <![CDATA[说明：不允许使用除了GET POST以外的请求方式 ]]>
     </entry>
     <entry key="java.yonyou.ServiceLoopCallRule.rule.msg">

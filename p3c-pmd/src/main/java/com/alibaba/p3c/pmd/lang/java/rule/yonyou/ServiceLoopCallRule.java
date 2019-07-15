@@ -1,10 +1,5 @@
 package com.alibaba.p3c.pmd.lang.java.rule.yonyou;
 
-/**
- * @author weipan
- * @date 2019/7/12 13:28
- */
-
 import com.alibaba.p3c.pmd.lang.java.rule.AbstractAliRule;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +11,10 @@ import net.sourceforge.pmd.lang.java.ast.AbstractJavaNode;
 
 /**
  * 排查所有循环中调用service或dao方法的代码
+ * @author weipan
+ * @date 2019/7/12 13:28
  */
+
 public class ServiceLoopCallRule extends AbstractAliRule {
 
   private static final String METHOD_CALL_PATH = "Statement//PrimaryExpression/PrimaryPrefix/Name";

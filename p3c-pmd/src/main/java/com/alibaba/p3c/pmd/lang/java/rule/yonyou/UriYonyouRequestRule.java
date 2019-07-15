@@ -4,6 +4,7 @@ import com.alibaba.p3c.pmd.lang.java.rule.AbstractAliRule;
 import java.util.ArrayList;
 import java.util.List;
 import net.sourceforge.pmd.lang.ast.Node;
+import net.sourceforge.pmd.lang.java.ast.ASTAnnotation;
 import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
 import net.sourceforge.pmd.lang.java.ast.ASTLiteral;
 import net.sourceforge.pmd.lang.java.ast.ASTName;
@@ -13,7 +14,7 @@ import net.sourceforge.pmd.lang.java.ast.ASTName;
  * @date 2019/7/10 15:51
  * @deprecated Uri请求的规范问题 只允许使用 Get 和  Post方式请求服务器资源
  */
-public class URIRequestRule extends AbstractAliRule {
+public class UriYonyouRequestRule extends AbstractAliRule {
 
   /**
    * uri规范只允许小写字母 以-连接
@@ -27,7 +28,6 @@ public class URIRequestRule extends AbstractAliRule {
    * @PostMapping 三类通用注解的位置在方法和接口的声明
    */
   private static final String ANNOTATE_METHOD_XPATH = "//Annotation//Name";
-
 
   @Override
   public Object visit(ASTCompilationUnit node, Object data) {

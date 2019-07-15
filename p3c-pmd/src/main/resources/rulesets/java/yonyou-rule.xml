@@ -5,10 +5,10 @@
   xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
   <description>YonyouRule</description>
 
-  <rule name="URIRequestRule"
+  <rule name="UriYonyouRequestRule"
     language="java"
-    message="java.yonyou.URIRequestRule.rule.msg"
-    class="com.alibaba.p3c.pmd.lang.java.rule.yonyou.URIRequestRule">
+    message="java.yonyou.UriYonyouRequestRule.rule.msg"
+    class="com.alibaba.p3c.pmd.lang.java.rule.yonyou.UriYonyouRequestRule">
     <!--级别，1强制，2推荐，3参考-->
     <priority>1</priority>
 

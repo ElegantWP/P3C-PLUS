@@ -15,6 +15,7 @@
     <rule ref="rulesets/java/ali-other.xml"/>
     <rule ref="rulesets/java/ali-orm.xml"/>
     <rule ref="rulesets/java/ali-exception.xml"/>
+    <rule ref="rulesets/java/yonyou-rule.xml"/>
     <rule ref="rulesets/java/ali-oop.xml">
         <exclude name="EqualsAvoidNullRule"/>
         <exclude name="WrapperTypeEqualityRule"/>

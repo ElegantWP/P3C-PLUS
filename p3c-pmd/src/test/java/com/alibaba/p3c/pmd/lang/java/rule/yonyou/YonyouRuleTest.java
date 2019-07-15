@@ -8,14 +8,14 @@ import org.junit.Test;
  * @author weipan
  * @date 2019/7/11 16:26
  */
-public class URIRequestRuleTest extends SimpleAggregatorTst {
+public class YonyouRuleTest extends SimpleAggregatorTst {
 
   // 加载类路径Classpath下的 rulesets/java/yonyou-rule.xml
   private static final String RULESET = "java-yonyou-rule";
 
   @Override
   public void setUp() {
-    addRule(RULESET, "URIRequestRule");
+    addRule(RULESET, "UriYonyouRequestRule");
     addRule(RULESET,"ServiceLoopCallRule");
     addRule(RULESET,"LombokUseRule");
     addRule(RULESET,"MethodParameterCountRule");
@@ -23,8 +23,8 @@ public class URIRequestRuleTest extends SimpleAggregatorTst {
 
   @Test
   public void testURI(){
-    Rule rule = this.findRule(RULESET,"URIRequestRule");
-    runTests(rule,"URIRequestRule");
+    Rule rule = this.findRule(RULESET,"UriYonyouRequestRule");
+    runTests(rule,"UriYonyouRequestRule");
   }
 
   @Test

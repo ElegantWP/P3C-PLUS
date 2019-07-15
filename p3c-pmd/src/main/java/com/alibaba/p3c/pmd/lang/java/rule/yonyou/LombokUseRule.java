@@ -1,10 +1,10 @@
 package com.alibaba.p3c.pmd.lang.java.rule.yonyou;
 
 import com.alibaba.p3c.pmd.lang.java.rule.AbstractAliRule;
+import com.alibaba.p3c.pmd.lang.java.util.LombokAnnotation;
 import java.util.List;
 import net.sourceforge.pmd.lang.ast.Node;
 import net.sourceforge.pmd.lang.java.ast.ASTCompilationUnit;
-import net.sourceforge.pmd.lang.java.ast.ASTImportDeclaration;
 import net.sourceforge.pmd.lang.java.ast.ASTName;
 import net.sourceforge.pmd.lang.java.ast.AbstractJavaNode;
 import org.jaxen.JaxenException;
@@ -49,10 +49,18 @@ public class LombokUseRule extends AbstractAliRule {
       e.printStackTrace();
     }
   }
-//之后替换枚举类
+
+  /**
+   * 校验lombok的规约 lombok.Value
+   * @param str 校验字符串
+   * @return boolean
+   */
   private boolean judge(String str){
-    if ("Data".equals(str) || "Log4j".equals(str) || "NoArgsConstructor".equals(str) || "AllArgsConstructor".equals(str) ||
-        "Cleanup".equals(str) || "Synchronized".equals(str) || "SneakyThrows".equals(str) || "NonNull".equals(str) || "Value".equals(str)){
+    if (LombokAnnotation.Data.getAnnotationName().equals(str) || LombokAnnotation.Log4j.getAnnotationName().equals(str) ||
+        LombokAnnotation.NoArgsConstructor.getAnnotationName().equals(str) || LombokAnnotation.AllArgsConstructor.getAnnotationName().equals(str) ||
+        LombokAnnotation.Cleanup.getAnnotationName().equals(str) || LombokAnnotation.Synchronized.getAnnotationName().equals(str) ||
+        LombokAnnotation.SneakyThrows.getAnnotationName().equals(str) || LombokAnnotation.NonNull.getAnnotationName().equals(str) ||
+        LombokAnnotation.Value.getAnnotationName().equals(str)){
       return true;
     }
     return false;
